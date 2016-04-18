@@ -19,6 +19,12 @@ module Danthes
     def authenticate_subscribe(message)
       subscription = Danthes.subscription(channel: message['subscription'],
                                           timestamp: message['ext']['danthes_timestamp'])
+      puts "message"
+      puts message.inspect
+      puts 'subscription'
+      puts subscription.inspect
+      puts "config"
+      puts Danthes.config.inspect
       if message['ext']['danthes_signature'] != subscription[:signature]
         message['error'] = 'Incorrect signature.'
       elsif Danthes.signature_expired? message['ext']['danthes_timestamp'].to_i
