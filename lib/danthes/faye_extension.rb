@@ -34,6 +34,8 @@ module Danthes
 
     # Ensures the secret token is correct before publishing.
     def authenticate_publish(message)
+      puts 'messgae inside authenticate_publish: '
+      puts message.inspect
       if Danthes.config[:secret_token].nil?
         fail Error, 'No secret_token config set, ensure danthes.yml is loaded properly.'
       elsif message.dig('ext','danthes_token') != Danthes.config[:secret_token]
