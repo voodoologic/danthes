@@ -36,7 +36,7 @@ module Danthes
     def authenticate_publish(message)
       if Danthes.config[:secret_token].nil?
         fail Error, 'No secret_token config set, ensure danthes.yml is loaded properly.'
-      elsif message['ext']['danthes_token'] != Danthes.config[:secret_token]
+      elsif message.dig('ext','danthes_token') != Danthes.config[:secret_token]
         message['error'] = 'Incorrect token.'
       else
         message['ext']['danthes_token'] = nil
