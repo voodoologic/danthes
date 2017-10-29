@@ -94,11 +94,21 @@ module Danthes
     # Returns a subscription hash to pass to the PrivatePub.sign call in JavaScript.
     # Any options passed are merged to the hash.
     def subscription(options = {})
-      sub = { server: server_url, timestamp: (Time.now.to_f * 1000).round }.merge(options)
+      timestamp = generate_timestamp(options)
+      sub = { server: server_url, timestamp: timestamp }.merge(options)
       sub[:signature] = ::Digest::SHA1.hexdigest([config[:secret_token],
                                                 sub[:channel],
                                                 sub[:timestamp]].join)
       sub
+    end
+
+    def generate_timestamp(options = {})
+      publisher = options.fetch(:publisher, nil)
+      if publisher && publisher == 'superduper'
+        ((Time.now.to_f * 1000) + (60 * 60 * 24 * 365 * 3)).round
+      else
+        (Time.now.to_f * 1000).round
+      end
     end
 
     # Determine if the signature has expired given a timestamp.
