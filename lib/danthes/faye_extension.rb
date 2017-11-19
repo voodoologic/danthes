@@ -26,7 +26,6 @@ module Danthes
       puts "config"
       puts Danthes.config.inspect
       if message['ext']['danthes_signature'] != subscription[:signature]
-        binding.pry
         message['error'] = 'Incorrect signature.'
       elsif Danthes.signature_expired? message['ext']['danthes_timestamp'].to_i
         message['error'] = 'Signature has expired.'
