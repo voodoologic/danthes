@@ -106,7 +106,7 @@ module Danthes
 
     def generate_timestamp(options = {})
       publisher = options.fetch(:publisher, nil)
-      if publisher && publisher == 'superduper'
+      if publisher && publisher == 'iampublisher'
         ((Time.now.to_f * 1000) + (60 * 60 * 24 * 365 * 3)).round
       else
         (Time.now.to_f * 1000).round

@@ -19,12 +19,6 @@ module Danthes
     def authenticate_subscribe(message)
       subscription = Danthes.subscription(channel: message['subscription'],
                                           timestamp: message['ext']['danthes_timestamp'])
-      puts "message"
-      puts message.inspect
-      puts 'subscription'
-      puts subscription.inspect
-      puts "config"
-      puts Danthes.config.inspect
       if message['ext']['danthes_signature'] != subscription[:signature]
         message['error'] = 'Incorrect signature.'
       elsif Danthes.signature_expired? message['ext']['danthes_timestamp'].to_i
@@ -35,7 +29,6 @@ module Danthes
     # Ensures the secret token is correct before publishing.
     def authenticate_publish(message)
       puts 'messgae inside authenticate_publish: '
-      puts message.inspect
       if Danthes.config[:secret_token].nil?
         fail Error, 'No secret_token config set, ensure danthes.yml is loaded properly.'
       elsif message.dig('ext','danthes_token') != Danthes.config[:secret_token]
