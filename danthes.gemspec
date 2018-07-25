@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
-  s.add_dependency 'faye',      '>= 1.0.1'
+  s.add_dependency 'faye',      '>= 1.2.4'
   s.add_dependency 'faye-redis'
   s.add_dependency 'yajl-ruby', '>= 1.2.0'
 
