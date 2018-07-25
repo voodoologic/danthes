@@ -95,12 +95,12 @@ module Danthes
     # Any options passed are merged to the hash.
     def subscription(options = {})
       timestamp = generate_timestamp(options)
-      puts "options"
-      puts options.inspect
+      puts "options: #{options.inspect}"
       sub = { server: server_url, timestamp: timestamp }.merge(options)
       sub[:signature] = ::Digest::SHA1.hexdigest([config[:secret_token],
                                                 sub[:channel],
                                                 sub[:timestamp]].join)
+      puts "signature = #{sub[:signature]}"
       sub
     end
 
