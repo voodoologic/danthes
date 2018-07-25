@@ -32,6 +32,7 @@ module Danthes
       if Danthes.config[:secret_token].nil?
         fail Error, 'No secret_token config set, ensure danthes.yml is loaded properly.'
       elsif message.dig('ext','danthes_token') != Danthes.config[:secret_token]
+        puts 'Incorrect token'
         message['error'] = 'Incorrect token.'
       else
         message['ext']['danthes_token'] = nil
